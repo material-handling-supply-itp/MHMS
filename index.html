@@ -1,39 +1,105 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>MHMS — Material Handling Management System</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MHMS — Material Handling Management System</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<section id="loginView" class="login-screen"><div class="login-card">
-<div class="brand-mark">MH</div><p class="eyebrow">MATERIAL HANDLING</p><h1>Management System</h1>
-<p class="muted">Masuk menggunakan akun yang dibuat Administrator.</p>
-<form id="loginForm"><label>Username</label><input id="username" autocomplete="username" required placeholder="Masukkan username">
-<label>Password</label><input id="password" type="password" autocomplete="current-password" required placeholder="Masukkan password">
-<button id="loginButton" class="primary full">Masuk ke MHMS</button><p id="loginMessage" class="message"></p></form>
-</div></section>
+<section id="loginView" class="login-screen">
+  <div class="login-card">
+    <div class="brand-mark">MH</div>
+    <p class="eyebrow">MATERIAL HANDLING</p>
+    <h1>Management System</h1>
+    <p class="muted">Masuk menggunakan NIK dan password.</p>
+    <form id="loginForm">
+      <label for="nik">NIK</label>
+      <input id="nik" inputmode="numeric" autocomplete="username" pattern="[0-9]+" required placeholder="Masukkan NIK">
+      <label for="password">Password</label>
+      <input id="password" type="password" autocomplete="current-password" required placeholder="Masukkan password">
+      <button id="loginButton" class="primary full" type="submit">Masuk ke MHMS</button>
+      <p id="loginMessage" class="message"></p>
+    </form>
+  </div>
+</section>
+
 <section id="appView" class="app-shell hidden">
-<aside class="sidebar"><div class="sidebar-brand"><span class="brand-mark small">MH</span><div><b>MHMS</b><small>Material Handling</small></div></div>
-<div class="nav-caption">MENU UTAMA</div><button class="nav-item active" data-page="dashboard">▦ &nbsp; Dashboard</button>
-<button class="nav-item" data-page="users" id="usersNav">♙ &nbsp; Manajemen Pengguna</button>
-<div class="sidebar-bottom">● System connected</div></aside>
-<main class="main-area"><header class="topbar"><b class="mobile-brand">MHMS</b><div class="topbar-right"><div class="user-chip"><span class="avatar" id="userInitial">A</span><span><b id="userLabel">Administrator</b><small id="roleLabel">ADMIN</small></span></div><button id="logoutButton" class="outline small-btn">Keluar</button></div></header>
-<section id="dashboardPage" class="page"><div class="page-heading"><div><p class="eyebrow">OVERVIEW</p><h1>Dashboard</h1><p class="muted">Ringkasan aktivitas Material Handling.</p></div><span class="date-label" id="todayLabel"></span></div>
-<div class="stat-grid"><article class="stat-card"><span>Total Laporan</span><strong id="totalReports">0</strong><small>Seluruh laporan tercatat</small></article><article class="stat-card"><span>Work Order Aktif</span><strong id="activeWos">0</strong><small>Work order berjalan</small></article><article class="stat-card"><span>Belum Selesai</span><strong id="openItems">0</strong><small>Menunggu penyelesaian</small></article></div>
-<article class="panel welcome-panel"><div><p class="eyebrow">MHMS WORKSPACE</p><h2>Selamat datang, <span id="welcomeName">Administrator</span></h2><p class="muted">Fondasi sistem berhasil terhubung. Modul operasional akan dikembangkan bertahap.</p></div><div class="welcome-symbol">MH</div></article></section>
-<section id="usersPage" class="page hidden"><div class="page-heading"><div><p class="eyebrow">ADMINISTRATION</p><h1>Manajemen Pengguna</h1><p class="muted">Kelola akun Supervisor dan Foreman MHMS.</p></div><button id="addUserButton" class="primary">＋ Tambah Pengguna</button></div>
-<div class="user-summary"><div class="summary-box"><span>Total Pengguna</span><strong id="userTotal">0</strong></div><div class="summary-box"><span>Aktif</span><strong id="userActive">0</strong></div><div class="summary-box"><span>Nonaktif</span><strong id="userInactive">0</strong></div></div>
-<div class="panel table-panel"><div class="table-toolbar"><div><h2>Daftar Pengguna</h2><p class="muted">Data akun yang terdaftar di MHMS_DATABASE.</p></div><div class="toolbar-controls"><input id="userSearch" placeholder="Cari nama / username..."><select id="roleFilter"><option value="">Semua Role</option><option>ADMIN</option><option>SUPERVISOR</option><option>FOREMAN</option></select><button id="refreshUsers" class="outline">↻ Refresh</button></div></div>
-<div class="table-wrap"><table><thead><tr><th>PENGGUNA</th><th>USERNAME</th><th>ROLE</th><th>AREA</th><th>STATUS</th><th>PASSWORD</th><th>AKSI</th></tr></thead><tbody id="usersTableBody"><tr><td colspan="7" class="empty-state">Memuat data pengguna...</td></tr></tbody></table></div><div class="table-footer"><span id="tableCount">0 pengguna</span><span>Data tersimpan di MHMS_DATABASE</span></div></div></section>
-</main></section>
-<div id="userModal" class="modal-backdrop hidden"><div class="modal-card"><div class="modal-header"><div><p class="eyebrow">USER MANAGEMENT</p><h2>Tambah Pengguna</h2></div><button class="icon-button" id="closeModal">×</button></div>
-<form id="userForm"><label>Nama Lengkap</label><input id="newName" required maxlength="100" placeholder="Nama lengkap"><label>Username</label><input id="newUsername" required minlength="3" maxlength="30" pattern="[A-Za-z0-9._-]+" placeholder="username"><small class="field-help">3–30 karakter: huruf, angka, titik, _ atau -.</small>
-<div class="form-row"><div><label>Role</label><select id="newRole"><option value="FOREMAN">Foreman</option><option value="SUPERVISOR">Supervisor</option></select></div><div><label>Area</label><input id="newArea" required maxlength="100" placeholder="Nama area"></div></div>
-<label>Password Awal</label><input id="newPassword" type="password" required minlength="8" placeholder="Minimal 8 karakter"><small class="field-help">Pengguna wajib mengganti password saat login pertama.</small><p id="userFormMessage" class="message"></p>
-<div class="modal-actions"><button type="button" id="cancelModal" class="outline">Batal</button><button id="saveUserButton" class="primary">Buat Akun</button></div></form></div></div>
-<div id="resetModal" class="modal-backdrop hidden"><div class="modal-card compact"><div class="modal-header"><div><p class="eyebrow">ACCOUNT SECURITY</p><h2>Reset Password</h2><p class="muted" id="resetUserName"></p></div><button class="icon-button" id="closeResetModal">×</button></div>
-<form id="resetForm"><label>Password Baru</label><input id="resetPassword" type="password" required minlength="8" placeholder="Minimal 8 karakter"><small class="field-help">Pengguna wajib mengganti password saat login berikutnya.</small><p id="resetMessage" class="message"></p><div class="modal-actions"><button type="button" id="cancelReset" class="outline">Batal</button><button id="confirmReset" class="primary">Reset Password</button></div></form></div></div>
+  <aside class="sidebar">
+    <div class="sidebar-brand"><span class="brand-mark small">MH</span><div><b>MHMS</b><small>Material Handling</small></div></div>
+    <div class="nav-caption">MENU UTAMA</div>
+    <button class="nav-item active" data-page="dashboard">▦ &nbsp; Dashboard</button>
+    <button class="nav-item hidden" data-page="users" id="usersNav">♙ &nbsp; Manajemen Pengguna</button>
+    <div class="sidebar-bottom">● System connected</div>
+  </aside>
+  <main class="main-area">
+    <header class="topbar">
+      <b class="mobile-brand">MHMS</b>
+      <div class="topbar-right">
+        <div class="user-chip"><span class="avatar" id="userInitial">U</span><span><b id="userLabel">Pengguna</b><small id="roleLabel">ROLE</small></span></div>
+        <button id="logoutButton" class="outline small-btn">Keluar</button>
+      </div>
+    </header>
+
+    <section id="dashboardPage" class="page">
+      <div class="page-heading"><div><p class="eyebrow">OVERVIEW</p><h1>Dashboard</h1><p class="muted">Ringkasan aktivitas Material Handling.</p></div><span class="date-label" id="todayLabel"></span></div>
+      <div class="stat-grid">
+        <article class="stat-card"><span>Total Laporan</span><strong id="totalReports">0</strong><small>Seluruh laporan tercatat</small></article>
+        <article class="stat-card"><span>Work Order Aktif</span><strong id="activeWos">0</strong><small>Work order berjalan</small></article>
+        <article class="stat-card"><span>Belum Selesai</span><strong id="openItems">0</strong><small>Menunggu penyelesaian</small></article>
+      </div>
+      <article class="panel welcome-panel"><div><p class="eyebrow">MHMS WORKSPACE</p><h2>Selamat datang, <span id="welcomeName">Pengguna</span></h2><p class="muted">Akun berhasil terhubung. Modul operasional akan dikembangkan bertahap.</p><p class="muted" id="welcomeMeta"></p></div><div class="welcome-symbol">MH</div></article>
+    </section>
+
+    <section id="usersPage" class="page hidden">
+      <div class="page-heading"><div><p class="eyebrow">ADMINISTRATION</p><h1>Manajemen Pengguna</h1><p class="muted">Kelola akun pengguna MHMS.</p></div><button id="addUserButton" class="primary">＋ Tambah Pengguna</button></div>
+      <div class="user-summary">
+        <div class="summary-box"><span>Total Pengguna</span><strong id="userTotal">0</strong></div>
+        <div class="summary-box"><span>Aktif</span><strong id="userActive">0</strong></div>
+        <div class="summary-box"><span>Nonaktif</span><strong id="userInactive">0</strong></div>
+      </div>
+      <div class="panel table-panel">
+        <div class="table-toolbar"><div><h2>Daftar Pengguna</h2><p class="muted">Data akun pada MHMS_DATABASE.</p></div>
+          <div class="toolbar-controls"><input id="userSearch" placeholder="Cari nama / NIK / area...">
+            <select id="roleFilter"><option value="">Semua Role</option></select>
+            <button id="refreshUsers" class="outline" type="button">↻ Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap"><table><thead><tr><th>PENGGUNA</th><th>NIK</th><th>ROLE</th><th>AREA</th><th>STATUS</th><th>PASSWORD</th><th>AKSI</th></tr></thead><tbody id="usersTableBody"><tr><td colspan="7" class="empty-state">Memuat data pengguna...</td></tr></tbody></table></div>
+        <div class="table-footer"><span id="tableCount">0 pengguna</span><span>Data tersimpan di MHMS_DATABASE</span></div>
+      </div>
+    </section>
+  </main>
+</section>
+
+<div id="userModal" class="modal-backdrop hidden"><div class="modal-card">
+  <div class="modal-header"><div><p class="eyebrow">USER MANAGEMENT</p><h2 id="userModalTitle">Tambah Pengguna</h2></div><button class="icon-button" id="closeModal" type="button">×</button></div>
+  <form id="userForm">
+    <label for="newName">Nama Lengkap</label><input id="newName" required maxlength="100" placeholder="Nama lengkap karyawan">
+    <label for="newNik">NIK</label><input id="newNik" required inputmode="numeric" pattern="[0-9]+" placeholder="Masukkan NIK (angka saja)"><small class="field-help">Gunakan NIK karyawan sesuai data perusahaan. Panjang NIK fleksibel.</small>
+    <div class="form-row">
+      <div><label for="newRole">Role</label><select id="newRole" required></select></div>
+      <div><label for="newArea">Area</label><select id="newArea" required></select></div>
+    </div>
+    <div id="passwordCreateGroup"><label for="newPassword">Password Awal</label><input id="newPassword" type="password" minlength="8" placeholder="Minimal 8 karakter"><small class="field-help">Pengguna wajib mengganti password saat login pertama.</small></div>
+    <p id="userFormMessage" class="message"></p>
+    <div class="modal-actions"><button type="button" id="cancelModal" class="outline">Batal</button><button id="saveUserButton" class="primary" type="submit">Buat Akun</button></div>
+  </form>
+</div></div>
+
+<div id="resetModal" class="modal-backdrop hidden"><div class="modal-card compact">
+  <div class="modal-header"><div><p class="eyebrow">ACCOUNT SECURITY</p><h2>Reset Password</h2><p class="muted" id="resetUserName"></p></div><button class="icon-button" id="closeResetModal" type="button">×</button></div>
+  <form id="resetForm"><label for="resetPassword">Password Baru</label><input id="resetPassword" type="password" required minlength="8" placeholder="Minimal 8 karakter"><small class="field-help">Pengguna wajib mengganti password saat login berikutnya.</small><p id="resetMessage" class="message"></p><div class="modal-actions"><button type="button" id="cancelReset" class="outline">Batal</button><button id="confirmReset" class="primary" type="submit">Reset Password</button></div></form>
+</div></div>
+
+<div id="changePasswordModal" class="modal-backdrop hidden"><div class="modal-card compact">
+  <div class="modal-header"><div><p class="eyebrow">ACCOUNT SECURITY</p><h2>Ganti Password</h2><p class="muted">Untuk keamanan, ganti password sebelum melanjutkan.</p></div></div>
+  <form id="changePasswordForm"><label for="currentPassword">Password Saat Ini</label><input id="currentPassword" type="password" required>
+    <label for="newOwnPassword">Password Baru</label><input id="newOwnPassword" type="password" required minlength="8" placeholder="Minimal 8 karakter">
+    <label for="confirmOwnPassword">Konfirmasi Password Baru</label><input id="confirmOwnPassword" type="password" required minlength="8">
+    <p id="changePasswordMessage" class="message"></p><div class="modal-actions"><button id="saveOwnPassword" class="primary" type="submit">Simpan Password</button></div>
+  </form>
+</div></div>
 <div id="toast" class="toast"></div>
 <script src="config.js"></script><script src="app.js"></script>
 </body></html>
